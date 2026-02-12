@@ -1,0 +1,8 @@
+{
+  "name": "Nexa Regata Sauna Company",
+  "description": "Recriação fiel da landing page para venda de regatas sauna com sistema de agendamento e painel administrativo.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
