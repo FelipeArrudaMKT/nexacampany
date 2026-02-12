@@ -1,49 +1,69 @@
+import { createClient } from "@supabase/supabase-js";
+import { Order, OrderStatus } from "../types";
 
-// Mock implementation to ensure no "white screen" if envs are missing.
-// In a real Vercel environment, these would be process.env.VITE_SUPABASE_URL and process.env.VITE_SUPABASE_ANON_KEY
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
-import { Order, OrderStatus } from '../types';
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Simple LocalStorage persistence as fallback/mock for this demo environment
-// to avoid crashes. In production, replace with @supabase/supabase-js
-const DB_KEY = 'nexa_orders_db';
-
-export const saveOrder = async (order: Order): Promise<{ success: boolean; error?: string }> => {
+export const saveOrder = async (
+  order: Order
+): Promise<{ success: boolean; error?: string }> => {
   try {
-    const ordersStr = localStorage.getItem(DB_KEY);
-    const orders: Order[] = ordersStr ? JSON.parse(ordersStr) : [];
-    const newOrder = { ...order, id: crypto.randomUUID(), createdAt: new Date().toISOString() };
-    orders.push(newOrder);
-    localStorage.setItem(DB_KEY, JSON.stringify(orders));
+    const payload = {
+      ...order,
+      status: (order as any).status ?? "novo",
+    };
+
+    const { error } = await supabase.from("orders").insert([payload]);
+    if (error) throw error;
+
     return { success: true };
-  } catch (err) {
-    console.error("Error saving order:", err);
-    return { success: false, error: "Falha ao salvar pedido." };
+  } catch (err: any) {
+    console.error("Supabase saveOrder error:", err);
+    return { success: false, error: err?.message ?? "Falha ao salvar pedido." };
   }
 };
 
 export const getOrders = async (): Promise<Order[]> => {
-  const ordersStr = localStorage.getItem(DB_KEY);
-  if (!ordersStr) return [];
-  const orders: Order[] = JSON.parse(ordersStr);
-  return orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  const { data, error } = await supabase
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Supabase getOrders error:", error);
+    return [];
+  }
+
+  return (data ?? []) as Order[];
 };
 
-export const updateOrderStatus = async (id: string, status: OrderStatus, adminNotes?: string): Promise<boolean> => {
-  const orders = await getOrders();
-  const index = orders.findIndex(o => o.id === id);
-  if (index !== -1) {
-    orders[index].status = status;
-    if (adminNotes !== undefined) orders[index].adminNotes = adminNotes;
-    localStorage.setItem(DB_KEY, JSON.stringify(orders));
-    return true;
+export const updateOrderStatus = async (
+  id: string,
+  status: OrderStatus,
+  adminNotes?: string
+): Promise<boolean> => {
+  const { error } = await supabase
+    .from("orders")
+    .update({ status, admin_notes: adminNotes })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Supabase updateOrderStatus error:", error);
+    return false;
   }
-  return false;
+
+  return true;
 };
 
 export const deleteOrder = async (id: string): Promise<boolean> => {
-  const orders = await getOrders();
-  const filtered = orders.filter(o => o.id !== id);
-  localStorage.setItem(DB_KEY, JSON.stringify(filtered));
+  const { error } = await supabase.from("orders").delete().eq("id", id);
+
+  if (error) {
+    console.error("Supabase deleteOrder error:", error);
+    return false;
+  }
+
   return true;
 };
