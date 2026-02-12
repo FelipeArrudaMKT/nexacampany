@@ -13,18 +13,29 @@ export const Packages: React.FC<{onOrderClick: () => void}> = ({onOrderClick}) =
       </div>
 
       <div className="max-w-5xl mx-auto px-4 mb-20">
-        <div className="bg-purple-700 rounded-[3rem] overflow-hidden shadow-[0_30px_100px_rgba(126,34,206,0.3)] border border-purple-500/30">
-           <div className="bg-purple-600 py-10 px-6 text-center">
-              <h3 className="text-4xl md:text-7xl font-black text-emerald-400 leading-none italic mb-4 uppercase tracking-tighter drop-shadow-lg">
+        <div className="bg-purple-700 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_30px_100px_rgba(126,34,206,0.5)] border border-purple-500/30">
+           {/* Header de Alto Impacto */}
+           <div className="bg-purple-600 py-10 md:py-14 px-6 text-center border-b border-purple-500/20">
+              <h3 className="text-4xl md:text-8xl font-black text-emerald-400 leading-none italic mb-4 uppercase tracking-tighter drop-shadow-2xl">
                 PAGAMENTO SÓ NA ENTREGA
               </h3>
-              <h4 className="text-3xl md:text-6xl font-black text-white tracking-widest uppercase">
+              <h4 className="text-3xl md:text-6xl font-black text-white tracking-widest uppercase opacity-90">
                 FRETE GRÁTIS
               </h4>
            </div>
            
-           <div className="p-8 md:p-16">
-              <img src="https://picsum.photos/id/1059/1200/800" className="w-full h-auto rounded-2xl" alt="Pacotes Banner" />
+           {/* Container da Imagem Otimizado (Estilo Shopify Premium) */}
+           <div className="p-2 md:p-6 flex justify-center items-center bg-purple-700">
+              <div className="relative group w-full flex justify-center">
+                {/* Glow Effect de fundo para destacar a imagem */}
+                <div className="absolute -inset-4 bg-emerald-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+                
+                <img 
+                  src="https://otxafqxfpqiffltyjjii.supabase.co/storage/v1/object/public/videos%20sauna/precos.png" 
+                  className="relative w-full md:w-[95%] h-auto rounded-xl md:rounded-2xl shadow-2xl transform transition-all duration-700 hover:scale-[1.01]" 
+                  alt="Pacotes e Preços Nexa" 
+                />
+              </div>
            </div>
         </div>
       </div>

@@ -21,17 +21,16 @@ export const Benefits: React.FC<{onOrderClick: () => void}> = ({onOrderClick}) =
       </div>
 
       <div className="max-w-5xl mx-auto px-4 mb-16">
-        <div className="aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative group">
-           <img 
-             src="https://picsum.photos/id/102/1200/675" 
-             className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
-             alt="Benefit Video Preview" 
-           />
-           <div className="absolute inset-0 flex items-center justify-center">
-             <div className="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center text-white shadow-xl cursor-pointer hover:scale-110 transition-all">
-                <div className="border-t-[10px] border-t-transparent border-l-[18px] border-l-white border-b-[10px] border-b-transparent ml-2"></div>
-             </div>
-           </div>
+        <div className="aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl relative group border-4 border-purple-100">
+           <video 
+             src="https://otxafqxfpqiffltyjjii.supabase.co/storage/v1/object/public/videos%20sauna/mini-vsl.mp4" 
+             className="w-full h-full object-cover"
+             controls
+             playsInline
+             poster="https://picsum.photos/id/102/1200/675?grayscale"
+           >
+             Seu navegador não suporta vídeos.
+           </video>
         </div>
       </div>
 
