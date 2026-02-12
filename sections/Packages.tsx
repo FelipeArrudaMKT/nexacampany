@@ -12,28 +12,29 @@ export const Packages: React.FC<{onOrderClick: () => void}> = ({onOrderClick}) =
         <p className="text-gray-400 text-lg">Ofertas especiais por tempo limitado! Quanto mais peças, maior o desconto. Escolha o pacote do seu interesse.</p>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 mb-20">
-        <div className="bg-purple-700 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_30px_100px_rgba(126,34,206,0.5)] border border-purple-500/30">
-           {/* Header de Alto Impacto */}
-           <div className="bg-purple-600 py-10 md:py-14 px-6 text-center border-b border-purple-500/20">
+      {/* Container de Oferta Principal - Expandido para max-w-7xl para maior impacto */}
+      <div className="max-w-7xl mx-auto px-4 mb-20">
+        <div className="bg-purple-700 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-[0_40px_120px_rgba(126,34,206,0.6)] border border-purple-500/30">
+           {/* Headline de Impacto - Mantendo a força e o estilo solicitado */}
+           <div className="bg-purple-600 py-10 md:py-16 px-6 text-center border-b border-purple-500/20">
               <h3 className="text-4xl md:text-8xl font-black text-emerald-400 leading-none italic mb-4 uppercase tracking-tighter drop-shadow-2xl">
                 PAGAMENTO SÓ NA ENTREGA
               </h3>
-              <h4 className="text-3xl md:text-6xl font-black text-white tracking-widest uppercase opacity-90">
+              <h4 className="text-3xl md:text-6xl font-black text-white tracking-widest uppercase opacity-95">
                 FRETE GRÁTIS
               </h4>
            </div>
            
-           {/* Container da Imagem Otimizado (Estilo Shopify Premium) */}
-           <div className="p-2 md:p-6 flex justify-center items-center bg-purple-700">
-              <div className="relative group w-full flex justify-center">
-                {/* Glow Effect de fundo para destacar a imagem */}
-                <div className="absolute -inset-4 bg-emerald-500/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+           {/* Container da Imagem - 100% Width e Zero Padding para eliminar espaço morto */}
+           <div className="p-0 m-0 flex justify-center items-center bg-purple-700">
+              <div className="relative w-full overflow-hidden">
+                {/* Overlay sutil para acabamento premium */}
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent pointer-events-none z-10"></div>
                 
                 <img 
-                  src="https://otxafqxfpqiffltyjjii.supabase.co/storage/v1/object/public/videos%20sauna/precos.png" 
-                  className="relative w-full md:w-[95%] h-auto rounded-xl md:rounded-2xl shadow-2xl transform transition-all duration-700 hover:scale-[1.01]" 
-                  alt="Pacotes e Preços Nexa" 
+                  src="https://otxafqxfpqiffltyjjii.supabase.co/storage/v1/object/public/videos%20sauna/Design%20sem%20nome.png" 
+                  className="w-full h-auto block object-cover transform transition-transform duration-1000 hover:scale-[1.01]" 
+                  alt="Oferta Especial Nexa" 
                 />
               </div>
            </div>
@@ -46,9 +47,9 @@ export const Packages: React.FC<{onOrderClick: () => void}> = ({onOrderClick}) =
             key={i} 
             onClick={onOrderClick}
             className={`p-6 rounded-2xl text-center transition-all transform hover:-translate-y-2 border-2 ${
-              i === 3 ? 'bg-amber-500 border-amber-400' : 
+              i === 3 ? 'bg-amber-500 border-amber-400 shadow-[0_10px_30px_rgba(245,158,11,0.3)]' : 
               i === 2 ? 'bg-blue-600 border-blue-500' :
-              i === 1 ? 'bg-emerald-600 border-emerald-500' :
+              i === 1 ? 'bg-emerald-600 border-emerald-500 shadow-[0_10px_30px_rgba(16,185,129,0.2)]' :
               'bg-purple-600 border-purple-500'
             }`}
           >
@@ -70,7 +71,7 @@ export const Packages: React.FC<{onOrderClick: () => void}> = ({onOrderClick}) =
            </p>
            <button 
              onClick={onOrderClick}
-             className="bg-purple-600 hover:bg-purple-500 text-white font-black px-12 py-4 rounded-xl shadow-xl transition-all"
+             className="bg-purple-600 hover:bg-purple-500 text-white font-black px-12 py-4 rounded-xl shadow-xl transition-all hover:scale-105 active:scale-95"
            >
              APROVEITAR OFERTA AGORA
            </button>

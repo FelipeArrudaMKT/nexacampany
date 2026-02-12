@@ -1,5 +1,5 @@
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   // Made children optional to fix 'missing children' error in App.tsx when used in JSX.
@@ -11,19 +11,15 @@ interface State {
 }
 
 /**
- * Extending React.Component explicitly ensure the TypeScript compiler correctly 
- * identifies inherited properties like 'props' and 'state', which can sometimes 
- * be misidentified when using destructured imports in certain environments.
+ * Extending React.Component directly and using class properties for state initialization 
+ * ensures that TypeScript correctly identifies inherited properties like 'props' and 'state'.
  */
-// Fix: Explicitly extending React.Component with generic Props and State ensures this.props is available.
-// Adding an explicit constructor also helps stabilize inheritance metadata for TypeScript.
+// Fix: Explicitly extend React.Component to resolve property access issues in TypeScript.
 export class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      hasError: false
-    };
-  }
+  // Fix: Initialize state as a class property to ensure correct property inference on the instance.
+  state: State = {
+    hasError: false
+  };
 
   public static getDerivedStateFromError(_: Error): State {
     return { hasError: true };
@@ -34,6 +30,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public render() {
+    // Fix: Access state property inherited from the React.Component base class.
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-4">
@@ -51,7 +48,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
       );
     }
 
-    // Inherited from React.Component, this.props is now correctly recognized.
+    // Fix: Access props property inherited from the React.Component base class.
     return this.props.children;
   }
 }
