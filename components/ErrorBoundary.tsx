@@ -1,5 +1,5 @@
 
-import React, { ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   // Made children optional to fix 'missing children' error in App.tsx when used in JSX.
@@ -11,13 +11,13 @@ interface State {
 }
 
 /**
- * Extending React.Component directly and using class properties for state initialization 
- * ensures that TypeScript correctly identifies inherited properties like 'props' and 'state'.
+ * Standard React Error Boundary component.
+ * Explicitly extending React.Component ensures that the state and props types are correctly inherited.
  */
-// Fix: Explicitly extend React.Component to resolve property access issues in TypeScript.
+// Fix: Use React.Component instead of just Component to ensure property inheritance for 'state' and 'props' is correctly resolved by the TypeScript compiler.
 export class ErrorBoundary extends React.Component<Props, State> {
-  // Fix: Initialize state as a class property to ensure correct property inference on the instance.
-  state: State = {
+  // Fix: Declare state as a class property with an initializer to resolve 'Property state does not exist' errors and avoid 'this' context issues in the constructor.
+  public state: State = {
     hasError: false
   };
 

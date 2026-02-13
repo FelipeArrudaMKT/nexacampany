@@ -14,6 +14,7 @@ import { Footer } from './sections/Footer';
 import { OrderModal } from './components/OrderModal';
 import { AdminDashboard } from './admin/AdminDashboard';
 import { LoginForm } from './admin/LoginForm';
+import { WhatsAppButton } from './components/WhatsAppButton';
 
 const LandingPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +32,7 @@ const LandingPage = () => {
         <FAQ />
       </main>
       <Footer />
+      <WhatsAppButton />
       <OrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );

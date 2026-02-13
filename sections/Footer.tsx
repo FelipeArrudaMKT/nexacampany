@@ -14,11 +14,11 @@ export const Footer: React.FC = () => {
           <div className="space-y-4 text-sm text-gray-400">
              <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-purple-400 mt-1" />
-                <span>São Paulo, SP - Brasil</span>
+                <span>Brasil</span>
              </div>
              <div className="flex items-start gap-3">
                 <Phone size={18} className="text-purple-400 mt-1" />
-                <span>(88) 9 9690-5380</span>
+                <span>(67) 9 9834-8381</span>
              </div>
              <div className="flex items-start gap-3">
                 <Mail size={18} className="text-purple-400 mt-1" />
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
              </div>
              <div className="flex items-start gap-3">
                 <Clock size={18} className="text-purple-400 mt-1" />
-                <span>Entrega Seg-Sab: 8h às 18h</span>
+                <span>Suporte Seg-Sab: 8h às 18h</span>
              </div>
           </div>
         </div>
