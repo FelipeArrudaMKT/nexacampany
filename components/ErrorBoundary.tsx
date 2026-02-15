@@ -2,35 +2,53 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
-  // Made children optional to fix 'missing children' error in App.tsx when used in JSX.
+  /**
+   * Children components to be wrapped by the error boundary.
+   */
   children?: ReactNode;
 }
 
 interface State {
+  /**
+   * Whether an error has been captured by the boundary.
+   */
   hasError: boolean;
 }
 
 /**
  * Standard React Error Boundary component.
- * Explicitly extending React.Component ensures that the state and props types are correctly inherited.
+ * Captures JavaScript errors anywhere in their child component tree,
+ * logs those errors, and displays a fallback UI instead of the component tree that crashed.
  */
-// Fix: Use React.Component instead of just Component to ensure property inheritance for 'state' and 'props' is correctly resolved by the TypeScript compiler.
-export class ErrorBoundary extends React.Component<Props, State> {
-  // Fix: Declare state as a class property with an initializer to resolve 'Property state does not exist' errors and avoid 'this' context issues in the constructor.
-  public state: State = {
-    hasError: false
-  };
+export class ErrorBoundary extends Component<Props, State> {
+  // Fix: Explicitly initialize state and props in the constructor to ensure property inheritance (this.props and this.state) 
+  // is correctly resolved by the TypeScript compiler when extending React components.
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      hasError: false
+    };
+  }
 
+  /**
+   * Static method to update state when an error occurs.
+   */
   public static getDerivedStateFromError(_: Error): State {
     return { hasError: true };
   }
 
+  /**
+   * Lifecycle method to catch errors and log them.
+   */
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error("Uncaught error:", error, errorInfo);
   }
 
+  /**
+   * Renders the fallback UI if an error occurred, otherwise renders children.
+   */
   public render() {
-    // Fix: Access state property inherited from the React.Component base class.
+    // Fix: Access state property inherited from the base Component class.
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-4">
@@ -48,7 +66,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
       );
     }
 
-    // Fix: Access props property inherited from the React.Component base class.
+    // Fix: Access props property inherited from the base Component class to resolve 'Property props does not exist' error.
     return this.props.children;
   }
 }
